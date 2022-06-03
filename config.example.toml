@@ -10,8 +10,8 @@ In some cases, it may be impossible to even figure out who had translated works 
 SmtpHost = "smtp.gmail.com"
 SmtpPort = 465
 SmtpProto = "SSL"
-SmtpUser = ""
-SmtpPass = ""
-SmtpFrom = ""
-SmtpTo = ""
+SmtpUser = "admin"
+SmtpPass = "example_password"
+SmtpFrom = "admin@example.com"
+SmtpTo = [ "admin@example.com", "superadmin@example.com" ]
 SmtpSubject = "[CRITICAL] Ransomeware Canary Alert"
