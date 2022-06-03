@@ -17,6 +17,7 @@ type CanaryConfig struct {
 	SmtpPass       string
 	SmtpFrom       string
 	SmtpSubject    string
+	SmtpTo         []string
 }
 
 func NewConfig(configPath string) (cfg *CanaryConfig, err error) {
