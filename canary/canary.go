@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/chmey/ransomware_canary/cfg"
+	"github.com/chmey/ransomware_canary/email"
 	"github.com/chmey/ransomware_canary/file"
 	"github.com/fsnotify/fsnotify"
 )
@@ -73,6 +74,7 @@ func (c *Canary) watch() {
 				log.Println("event:", event)
 				if event.Op&fsnotify.Remove == fsnotify.Remove {
 					log.Println("carnary was deleted")
+					email.SendMail(c.config)
 					os.Exit(1)
 				}
 				newHash, err := file.GetFileHash(c.absolutePath)
@@ -80,6 +82,7 @@ func (c *Canary) watch() {
 
 				if !compareHashes(c.originalHash, newHash) {
 					log.Println("canary was modified")
+					email.SendMail(c.config)
 					os.Exit(1)
 				}
 
