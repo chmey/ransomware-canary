@@ -1,6 +1,7 @@
 package cfg
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -11,6 +12,7 @@ type CanaryConfig struct {
 	ForceOverwrite bool
 	CanaryFileName string
 	CanaryDocument string
+	SendMail       bool
 	SmtpHost       string
 	SmtpPort       int
 	SmtpProto      string
@@ -31,5 +33,19 @@ func NewConfig(configPath string) (cfg *CanaryConfig, err error) {
 	if err != nil {
 		return nil, err
 	}
+
+	err = cfg.hasMandatoryFields()
+	if err != nil {
+		return nil, err
+	}
+
 	return cfg, nil
+}
+
+func (config *CanaryConfig) hasMandatoryFields() error {
+	switch {
+	case config.CanaryFileName == "":
+		return errors.New("CanaryFileName can't be empty")
+	}
+	return nil
 }

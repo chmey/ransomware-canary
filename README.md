@@ -28,8 +28,10 @@ After installation, place the configuration at `/usr/local/etc/ranscanary/config
 Make a copy of `config.example.toml` to `config.toml` and edit options.
 
 Available configuration fields:
+- `ForceOverwrite`: allow to overwrite the canary document if it already exists (e.g. after a restart) (`bool`)
 - `CanaryFileName`: the file name of the canary document (`string`)
 - `CanaryDocument`: the content of the canary document (`string`)
+- `SendMail`: enable or disable sending email alerts (`bool`)
 - `SmtpHost`: the hostname of the SMTP server to send alerts (`string`)
 - `SmtpPort`: the port of the SMTP server (`int`)
 - `SmtpUser`: the username to authenticate at the SMTP server (`string`)

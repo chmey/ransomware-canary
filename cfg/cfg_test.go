@@ -28,6 +28,7 @@ func TestReadConfig(t *testing.T) {
 				CanaryDocument: `First Line Of Document
 Last Line Of Document
 `,
+				SendMail:    true,
 				SmtpHost:    "example.com",
 				SmtpPort:    465,
 				SmtpProto:   "SSL",
@@ -40,6 +41,7 @@ Last Line Of Document
 			wantWrite: true,
 			writeCfg: `
 ForceOverwrite = true
+SendMail = true
 canaryFileName = "test_canary.txt"
 canaryDocument = """
 First Line Of Document
