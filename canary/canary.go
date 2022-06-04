@@ -82,7 +82,12 @@ func (c *Canary) watch() {
 				log.Println("event:", event)
 				if event.Op&fsnotify.Remove == fsnotify.Remove {
 					log.Println("carnary was deleted")
-					email.SendMail(c.config)
+					if c.config.SendMail {
+						if err = email.SendMail(c.config); err != nil {
+							log.Println("failed sending the alert mail: %w", err)
+						}
+
+					}
 					os.Exit(1)
 				}
 				newHash, err := file.GetFileHash(c.absolutePath)
@@ -90,7 +95,11 @@ func (c *Canary) watch() {
 
 				if !compareHashes(c.originalHash, newHash) {
 					log.Println("canary was modified")
-					email.SendMail(c.config)
+					if c.config.SendMail {
+						if err = email.SendMail(c.config); err != nil {
+							log.Println("failed sending the alert mail: %w", err)
+						}
+					}
 					os.Exit(1)
 				}
 

@@ -13,7 +13,6 @@ import (
 const defaultCfgPath = "/usr/local/etc/ranscanary/config.toml"
 
 var (
-	// Used for flags.
 	cfgFile string
 	config  *cfg.CanaryConfig
 )
@@ -21,7 +20,7 @@ var (
 func initConfig() {
 
 	if cfgFile == "" {
-		log.Print("no -config PATH option specified, using default")
+		log.Println("no -config PATH option specified, using default")
 		cfgFile = defaultCfgPath
 	}
 	var err error
@@ -42,7 +41,7 @@ var rootCmd = &cobra.Command{
 	Short: "Ransomware canary",
 	Long: `The ransomware canary watches a file.
 Upon modification or deletion it logs and sends an alert email.
-See https://github.com/chmey/ransomware_canary`,
+See https://github.com/chmey/ransomware-canary`,
 	Run: func(cmd *cobra.Command, args []string) {
 		c := canary.NewCanary(config)
 		c.Start()
