@@ -10,7 +10,7 @@ Prerequisites:
 - Go 1.8.2  ([Installation Instructions](https://go.dev/doc/install))
 
 ```shell
-go build -v ./...
+make build
 ```
 
 ## Install
