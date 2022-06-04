@@ -23,6 +23,7 @@ func TestReadConfig(t *testing.T) {
 			configPath: "config.test.toml",
 			wantErr:    false,
 			expectedCfg: &CanaryConfig{
+				ForceOverwrite: true,
 				CanaryFileName: "test_canary.txt",
 				CanaryDocument: `First Line Of Document
 Last Line Of Document
@@ -38,6 +39,7 @@ Last Line Of Document
 			},
 			wantWrite: true,
 			writeCfg: `
+ForceOverwrite = true
 canaryFileName = "test_canary.txt"
 canaryDocument = """
 First Line Of Document

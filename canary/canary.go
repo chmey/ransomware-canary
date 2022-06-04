@@ -42,19 +42,27 @@ func (c *Canary) setCanary() error {
 
 	c.absolutePath = filePath
 	if _, err := os.Stat(filePath); errors.Is(err, os.ErrNotExist) {
-		fileContent := []byte(c.config.CanaryDocument)
-		err = os.WriteFile(filePath, fileContent, 0o644)
-		check(err)
-		log.Println("created canary at", c.absolutePath)
-
-		c.originalHash, err = file.GetFileHash(c.absolutePath)
-		check(err)
-
-		c.isSet = true
-		return nil
 	} else {
-		return errors.New("canary exists, won't overwrite")
+		if !c.config.ForceOverwrite {
+			return errors.New("canary exists, won't overwrite: Specify ForceOverwrite in config to force writing")
+		}
 	}
+
+	err = c.writeCanary()
+	check(err)
+	c.originalHash, err = file.GetFileHash(c.absolutePath)
+	check(err)
+	c.isSet = true
+
+	return nil
+}
+
+func (c *Canary) writeCanary() error {
+	fileContent := []byte(c.config.CanaryDocument)
+	err := os.WriteFile(c.absolutePath, fileContent, 0o644)
+	check(err)
+	log.Println("wrote canary at", c.absolutePath)
+	return nil
 }
 
 func (c *Canary) watch() {

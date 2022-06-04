@@ -8,6 +8,7 @@ import (
 )
 
 type CanaryConfig struct {
+	ForceOverwrite bool
 	CanaryFileName string
 	CanaryDocument string
 	SmtpHost       string
