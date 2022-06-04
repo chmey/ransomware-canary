@@ -1,7 +1,7 @@
 package cfg
 
 import (
-	"errors"
+	"fmt"
 	"os"
 
 	"github.com/BurntSushi/toml"
@@ -23,7 +23,7 @@ type CanaryConfig struct {
 
 func NewConfig(configPath string) (cfg *CanaryConfig, err error) {
 	if _, err := os.Stat(configPath); err != nil {
-		return nil, errors.New("config file does not exist")
+		return nil, fmt.Errorf("config file does not exist at %s", configPath)
 	}
 
 	cfg = &CanaryConfig{}
